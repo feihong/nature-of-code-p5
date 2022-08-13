@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module quickstart</title>
+  <style>
+    canvas {
+      border: 1px solid black
+    }
+
+  </style>
+  <script src="p5.min.js"></script>
+  <script>
+    function addExample(scriptName) {
+      import('./' + scriptName + '.js').then(mod => {
+        const h2 = document.createElement('h2')
+        h2.textContent = mod.name
+        document.body.appendChild(h2)
+
+        const div = document.createElement('div')
+        div.id = mod.name
+        document.body.appendChild(div)
+
+        new p5(mod.default, mod.name)
+      })
+    }
+
+    addExample('i-5')
+  </script>
+
+</head>
+
+<body></body>
+
+</html>
