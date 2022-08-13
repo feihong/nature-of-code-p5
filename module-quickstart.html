@@ -13,6 +13,17 @@
   </style>
   <script src="p5.min.js"></script>
   <script>
+    function autoBindMethods(s) {
+      const proto = Object.getPrototypeOf(s)
+      for (const name of Object.getOwnPropertyNames(proto)) {
+        const thing = proto[name]
+        if (typeof thing === 'function') {
+          s[name] = thing.bind(s)
+        }
+      }
+      return s
+    }
+
     function addExample(scriptName) {
       import('./' + scriptName + '.js').then(mod => {
         const h2 = document.createElement('h2')
@@ -23,7 +34,10 @@
         div.id = mod.name
         document.body.appendChild(div)
 
-        new p5(mod.default, mod.name)
+        new p5(s => {
+          autoBindMethods(s)
+          mod.default(s)
+        }, mod.name)
       })
     }
 
