@@ -41,7 +41,13 @@
       })
     }
 
-    addExample('i-5')
+    function addExamples(...scriptNames) {
+      for (const scriptName of scriptNames) {
+        addExample(scriptName)
+      }
+    }
+
+    addExamples('i-1')
   </script>
 
 </head>
