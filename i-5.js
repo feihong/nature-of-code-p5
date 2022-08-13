@@ -1,15 +1,43 @@
-export const name = 'Example I.5: Perlin noise walker'
+export const name = 'Example I.1: Traditional random walk'
 
 export default function (s) {
-  let { createCanvas, textSize, text } = s
+  let { random, createCanvas, stroke, point, background } = s
+
+  class Walker {
+    constructor() {
+      this.x = s.width / 2
+      this.y = s.height / 2
+    }
+
+    display() {
+      stroke(0)
+      point(this.x, this.y)
+    }
+
+    step() {
+      const choice = Math.floor(random(4))
+      if (choice == 0) {
+        this.x++;
+      } else if (choice == 1) {
+        this.x--;
+      } else if (choice == 2) {
+        this.y++;
+      } else {
+        this.y--;
+      }
+    }
+  }
+
+  let w = null
 
   s.setup = () => {
     createCanvas(400, 400)
-    textSize(52)
+    background(255)
+    w = new Walker()
   }
 
   s.draw = () => {
-    text('你好世界！', 80, 300)
-    text('你好世界！', 80, 200)
+    w.step()
+    w.display()
   }
 }
