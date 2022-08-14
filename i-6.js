@@ -1,7 +1,7 @@
 export const name = 'Example I.6: 2D Perlin noise'
 
 export default function (s) {
-  let { createCanvas, random, noise, map, loadPixels, updatePixels, set, color } = s
+  let { createCanvas, map, loadPixels, updatePixels, set, color } = s
 
   s.setup = () => {
     createCanvas(400, 400)
@@ -13,8 +13,8 @@ export default function (s) {
       let yoff = 0
 
       for (let y = 0; y < s.height; y++) {
-        // const bright = Math.floor(random(255));
-        const bright = map(noise(xoff, yoff), 0, 1, 0, 255)
+        // const bright = Math.floor(s.random(255));
+        const bright = map(s.noise(xoff, yoff), 0, 1, 0, 255)
 
         set(x, y, color(bright))
         yoff += 0.1

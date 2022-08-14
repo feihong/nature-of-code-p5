@@ -30,7 +30,7 @@ export default function (s) {
     }
   }
 
-  let w = null
+  let w
 
   s.setup = () => {
     createCanvas(400, 400)

@@ -26,10 +26,11 @@ export default function (s) {
     }
   }
 
-  let w = new Walker()
+  let w
 
   s.setup = () => {
     s.createCanvas(400, 400)
+    w = new Walker()
   }
 
   s.draw = () => {
