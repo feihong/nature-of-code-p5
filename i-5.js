@@ -5,15 +5,15 @@ export default function (s) {
 
   class Walker {
     constructor() {
-      this.x = 0
-      this.y = 0
+      this.x = s.width / 2
+      this.y = s.height / 2
       this.tx = 0
       this.ty = 10000
     }
 
     display() {
       stroke(0)
-      fill(165)
+      fill(200)
       ellipse(this.x, this.y, 16, 16)
     }
 
@@ -26,11 +26,10 @@ export default function (s) {
     }
   }
 
-  let w = null
+  let w = new Walker()
 
   s.setup = () => {
     s.createCanvas(400, 400)
-    w = new Walker()
   }
 
   s.draw = () => {
