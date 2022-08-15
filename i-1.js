@@ -7,7 +7,6 @@ export default function (s) {
     constructor() {
       this.x = s.width / 2
       this.y = s.height / 2
-      console.log(this.x, this.y)
     }
 
     display() {

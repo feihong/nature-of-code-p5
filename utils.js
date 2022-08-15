@@ -10,7 +10,8 @@ function autoBindMethods(s) {
 }
 
 function addExample(scriptName) {
-  import('./' + scriptName + '.js').then(mod => {
+  const jsFile = './' + scriptName + '.js'
+  return import(jsFile).then(mod => {
     const h2 = document.createElement('h2')
     h2.textContent = mod.name
     document.body.appendChild(h2)
@@ -19,15 +20,25 @@ function addExample(scriptName) {
     div.id = mod.name
     document.body.appendChild(div)
 
-    new p5(s => {
+    const sketch = new p5(s => {
       autoBindMethods(s)
       mod.default(s)
     }, div)
+
+    return
+  })
+}
+
+function addExamples_(scriptNames) {
+  const [first, ...rest] = scriptNames
+
+  addExample(first).then(() => {
+    if (rest.length > 0) {
+      addExamples_(rest)
+    }
   })
 }
 
 function addExamples(...scriptNames) {
-  for (const scriptName of scriptNames) {
-    addExample(scriptName)
-  }
+  addExamples_(scriptNames)
 }
