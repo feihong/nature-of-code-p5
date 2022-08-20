@@ -20,7 +20,7 @@ function addExample(scriptName) {
     div.id = mod.name
     document.body.appendChild(div)
 
-    const sketch = new p5(s => {
+    new p5(s => {
       autoBindMethods(s)
       mod.default(s)
     }, div)
@@ -29,9 +29,7 @@ function addExample(scriptName) {
   })
 }
 
-function addExamples_(scriptNames) {
-  const [first, ...rest] = scriptNames
-
+function addExamples_([first, ...rest]) {
   addExample(first).then(() => {
     if (rest.length > 0) {
       addExamples_(rest)
