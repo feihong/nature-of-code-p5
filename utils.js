@@ -12,12 +12,16 @@ function autoBindMethods(s) {
 function addExample(scriptName) {
   const jsFile = './' + scriptName + '.js'
   return import(jsFile).then(mod => {
+    const anchor = document.createElement('a')
+    anchor.setAttribute('name', scriptName)
+    document.body.appendChild(anchor)
+
     const h2 = document.createElement('h2')
     h2.textContent = mod.name
-    document.body.appendChild(h2)
+    anchor.appendChild(h2)
 
     const div = document.createElement('div')
-    div.id = mod.name
+    div.id = scriptName
     document.body.appendChild(div)
 
     new p5(s => {
