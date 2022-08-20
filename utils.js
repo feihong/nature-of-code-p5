@@ -9,28 +9,28 @@ function autoBindMethods(s) {
   return s
 }
 
-function addExample(scriptName) {
+async function addExample(scriptName) {
   const jsFile = './' + scriptName + '.js'
-  return import(jsFile).then(mod => {
-    const anchor = document.createElement('a')
-    anchor.setAttribute('name', scriptName)
-    document.body.appendChild(anchor)
+  const module = await import(jsFile)
 
-    const h2 = document.createElement('h2')
-    h2.textContent = mod.name
-    anchor.appendChild(h2)
+  const anchor = document.createElement('a')
+  anchor.setAttribute('name', scriptName)
+  document.body.appendChild(anchor)
 
-    const div = document.createElement('div')
-    div.id = scriptName
-    document.body.appendChild(div)
+  const h2 = document.createElement('h2')
+  h2.textContent = module.name
+  anchor.appendChild(h2)
 
-    new p5(s => {
-      autoBindMethods(s)
-      mod.default(s)
-    }, div)
+  const div = document.createElement('div')
+  div.id = scriptName
+  document.body.appendChild(div)
 
-    return { name: scriptName, title: mod.name }
-  })
+  new p5(s => {
+    autoBindMethods(s)
+    module.default(s)
+  }, div)
+
+  return { name: scriptName, title: module.name }
 }
 
 async function addExamples(...scriptNames) {
