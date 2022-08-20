@@ -29,18 +29,25 @@ function addExample(scriptName) {
       mod.default(s)
     }, div)
 
-    return
+    return { name: scriptName, title: mod.name }
   })
 }
 
-function addExamples_([first, ...rest]) {
-  addExample(first).then(() => {
-    if (rest.length > 0) {
-      addExamples_(rest)
-    }
-  })
+async function addExamples(...scriptNames) {
+  const examples = []
+
+  for (const scriptName of scriptNames) {
+    const example = await addExample(scriptName)
+    examples.push(example)
+  }
+
+  const toc = document.createElement('ul')
+  document.body.prepend(toc)
+
+  for (const example of examples) {
+    const li = document.createElement('li')
+    li.innerHTML = `<a href="#${example.name}">${example.title}</a>`
+    toc.appendChild(li)
+  }
 }
 
-function addExamples(...scriptNames) {
-  addExamples_(scriptNames)
-}
