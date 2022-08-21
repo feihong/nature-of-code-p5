@@ -1,4 +1,4 @@
-export const name = 'Example 1.2: Bouncing ball with no vectors'
+export const name = 'Example 1.2: Bouncing ball with vectors'
 
 class Vector {
   constructor(x, y) {
