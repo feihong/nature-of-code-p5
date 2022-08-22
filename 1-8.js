@@ -1,4 +1,4 @@
-export const name = 'Example 1.7: Motion 101 (velocity)'
+export const name = 'Example 1.8: Motion 101 (velocity and constant acceleration)'
 
 const width = 640
 const height = 360
@@ -34,16 +34,27 @@ class Vector {
       this.div(m)
     }
   }
+  limit(max) {
+    const m = this.mag()
+    if (m > max) {
+      this.normalize()
+      this.mult(max)
+    }
+  }
 }
 
 class Mover {
   constructor(sketch) {
     this.s = sketch
-    this.location = new Vector(sketch.random(width), sketch.random(height))
-    this.velocity = new Vector(sketch.random(-2, 2), sketch.random(-2, 2))
+    this.location = new Vector(sketch.width / 2, sketch.height / 2)
+    this.velocity = new Vector(0, 0)
+    this.acceleration = new Vector(-0.001, 0.01)
+    this.topspeed = 10
   }
 
   update() {
+    this.velocity.add(this.acceleration)
+    this.velocity.limit(this.topspeed)
     this.location.add(this.velocity)
   }
 
