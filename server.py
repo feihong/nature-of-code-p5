@@ -63,7 +63,7 @@ def get_example_html(code):
 
 class Handler(http.server.SimpleHTTPRequestHandler):
   def do_GET(self):
-    if self.path == '/examples':
+    if self.path == '/examples' or self.path == '/examples/':
       return self.list_examples()
     elif self.path.startswith('/examples/'):
       return self.render_example()
