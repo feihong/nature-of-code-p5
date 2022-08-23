@@ -7,7 +7,7 @@ PORT = 8000
 
 def get_examples_html():
   def get_examples():
-    for example in Path('.').glob('Example *.js'):
+    for example in sorted(Path('.').glob('Example *.js'), key=lambda p: p.name):
       m = re.match(r'Example (.*)  .*\.js', example.name)
       yield f"""<li>
         <a href="/examples/{m.group(1)}">
@@ -35,7 +35,6 @@ def get_examples_html():
 """
 
 def get_example_html(code):
-  print(code)
   glob = f'Example {code}  *.js'
   example = next(Path('.').glob(glob))
   title = example.stem.replace('  ', ': ')
