@@ -1,5 +1,3 @@
-export const name = 'Example 1.8: Motion 101 (velocity and constant acceleration)'
-
 const width = 640
 const height = 360
 
@@ -44,9 +42,8 @@ class Vector {
 }
 
 class Mover {
-  constructor(sketch) {
-    this.s = sketch
-    this.location = new Vector(sketch.width / 2, sketch.height / 2)
+  constructor() {
+    this.location = new Vector(width / 2, height / 2)
     this.velocity = new Vector(0, 0)
     this.acceleration = new Vector(-0.001, 0.01)
     this.topspeed = 10
@@ -59,10 +56,9 @@ class Mover {
   }
 
   display() {
-    const s = this.s
-    s.stroke(0)
-    s.fill(175)
-    s.ellipse(this.location.x, this.location.y, 16, 16)
+    stroke(0)
+    fill(175)
+    ellipse(this.location.x, this.location.y, 16, 16)
   }
 
   checkEdges() {
@@ -80,21 +76,17 @@ class Mover {
   }
 }
 
-export default function (s) {
-  let { background } = s
+let mover
 
-  let mover
+function setup() {
+  createCanvas(width, height)
+  mover = new Mover()
+}
 
-  s.setup = () => {
-    s.createCanvas(width, height)
-    mover = new Mover(s)
-  }
+function draw() {
+  background(255)
 
-  s.draw = () => {
-    background(255)
-
-    mover.update()
-    mover.checkEdges()
-    mover.display()
-  }
+  mover.update()
+  mover.checkEdges()
+  mover.display()
 }
